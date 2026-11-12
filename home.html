@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoLab - Belajar Bahasa Inggris Seru & Interaktif</title>
+    <!-- Mengimpor Google Fonts untuk gaya Klasik (Playfair Display) & Minimalis (Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variabel Warna Ungu Gelap & Putih */
+        :root {
+            --primary-purple: #2E1065;      /* Ungu Gelap Utama */
+            --dark-purple: #1B093E;         /* Ungu Sangat Gelap untuk Teks/Hover */
+            --light-purple-bg: #F5F3FF;     /* Latar Belakang Ungu Sangat Lembut */
+            --accent-gold: #D97706;         /* Aksen Emas sesuai bintang di logo */
+            --white: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --border-color: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .classic-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-purple);
+        }
+
+        /* Navbar Styling */
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(46, 16, 101, 0.04);
+        }
+
+        .navbar {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-container img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-fallback {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1.5px solid transparent;
+            padding: 0.6rem 1.4rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-purple);
+            background-color: var(--light-purple-bg);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-purple);
+            color: var(--white);
+            border-color: var(--primary-purple);
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            max-width: 1140px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3.5rem 2rem;
+        }
+
+        /* Animasi Perpindahan Halaman */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Layout Grid Bersebelahan (Teks & Gambar) */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            margin-bottom: 4.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--light-purple-bg);
+            color: var(--primary-purple);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(46, 16, 101, 0.15);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            line-height: 1.25;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styling Gambar Klasik & Rapih */
+        .image-frame {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(46, 16, 101, 0.12);
+            border: 6px solid var(--white);
+            outline: 1px solid var(--border-color);
+            background-color: var(--light-purple-bg);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Kartu Visi & Misi di Halaman Home */
+        .visi-misi-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .vm-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--primary-purple);
+            border-radius: 10px;
+            padding: 2.2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .vm-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .vm-card ul {
+            padding-left: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .vm-card ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        /* Banner Solusi di Halaman About Us */
+        .solution-box {
+            background-color: var(--primary-purple);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 3.5rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(46, 16, 101, 0.18);
+        }
+
+        .solution-box .badge {
+            background-color: rgba(255, 255, 255, 0.12);
+            color: var(--white);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .solution-box h2 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-box p {
+            color: #E0E7FF;
+            margin-bottom: 1.5rem;
+            font-size: 1.02rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feature-list li {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary-purple);
+            color: var(--white);
+            padding: 0.85rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--dark-purple);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-purple);
+            color: #D1D5DB;
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Responsif untuk Layar HP/Tablet */
+        @media (max-width: 850px) {
+            .split-grid, .visi-misi-container, .solution-box {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .solution-box {
+                padding: 2rem;
+            }
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container" onclick="switchPage('home')">
+                <!-- Ganti 'logo.jpeg' dengan nama file gambar logo LingoLab milikmu -->
+                <img src="logo.jpeg" alt="Logo LingoLab" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                <span id="fallback-logo" class="logo-fallback" style="display:none;">LingoLab</span>
+            </div>
+
+            <div class="nav-buttons">
+                <button id="btn-home" class="nav-btn active" onclick="switchPage('home')">Home</button>
+                <button id="btn-about" class="nav-btn" onclick="switchPage('about')">About Us</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ==================== HALAMAN 1: HOME ==================== -->
+        <section id="page-home" class="page-section active">
+            <div class="split-grid">
+                <div>
+                    <span class="badge">Tujuan Utama Kami</span>
+                    <h1 class="section-title">Mengubah Cara Belajar Bahasa Inggris Menjadi Lebih Seru & Interaktif</h1>
+                    <p class="section-desc">
+                        <strong>LingoLab</strong> hadir dengan tujuan mengajak siapa saja untuk menguasai bahasa Inggris tanpa rasa canggung. Melalui pendekatan permainan papan edukatif (*board game*), setiap kosakata dan percakapan terasa hidup, menyenangkan, dan mudah dipahami.
+                    </p>
+                    <button class="cta-btn" onclick="switchPage('about')">Pelajari Masalah & Solusi Kami &rarr;</button>
+                </div>
+
+                <div class="image-frame">
+                    <!-- Ganti 'foto-kelas-1.jpeg' dengan foto kegiatan interaksi di kelas -->
+                    <img src="foto-kelas-1.jpeg" alt="Suasana Belajar Interaktif LingoLab" onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80'">
+                </div>
+            </div>
+
+            <!-- Bagian Visi & Misi -->
+            <div class="visi-misi-container">
+                <div class="vm-card">
+                    <h3>Visi Kami</h3>
+                    <p style="color: var(--text-muted);">
+                        Menjadi pelopor media pembelajaran bahasa Inggris berbasis permainan interaktif yang mampu menghapus rasa bosan, menumbuhkan rasa percaya diri, dan menciptakan generasi yang komunikatif secara global.
+                    </p>
+                </div>
+
+                <div class="vm-card">
+                    <h3>Misi Kami</h3>
+                    <ul>
+                        <li>Menghadirkan metode belajar bahasa Inggris yang aktif, santai, dan jauh dari kesan kaku.</li>
+                        <li>Merancang permainan papan (*board game*) edukatif yang memicu rasa ingin tahu serta keberanian berbicara.</li>
+                        <li>Membangun suasana belajar kolaboratif yang mempererat kerja sama antar pelajar.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== HALAMAN 2: ABOUT US ==================== -->
+        <section id="page-about" class="page-section">
+            
+            <!-- Bagian 1: Masalah (Teks & Gambar Bersebelahan) -->
+            <div class="split-grid">
+                <div>
+                    <span class="badge">Latar Belakang & Masalah</span>
+                    <h2 class="section-title">Mengapa Belajar Bahasa Inggris Sering Terasa Membosankan?</h2>
+                    <p class="section-desc">
+                        Banyak pelajar merasa jenuh karena metode belajar konvensional terlalu terpaku pada hafalan rumus tata bahasa (*grammar*) dan buku teks yang pasif. Akibatnya, kelas terasa sunyi, siswa takut membuat kesalahan saat berbicara, dan materi sulit diingat dalam jangka panjang.
+                    </p>
+                    <p class="section-desc">
+                        Tanpa interaksi dua arah yang menyenangkan, bahasa Inggris hanya dianggap sebagai mata pelajaran hafalan, bukan alat komunikasi yang seru untuk dipraktikkan bersama teman.
+                    </p>
+                </div>
+
+                <div class="image-frame">
+                    <!-- Ganti 'foto-kelas-2.jpeg' dengan foto diskusi siswa di meja -->
+                    <img src="foto-kelas-2.jpeg" alt="Tantangan dalam Belajar Bahasa Inggris" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80'">
+                </div>
+            </div>
+
+            <!-- Bagian 2: Solusi (Di bawah Masalah) -->
+            <div class="solution-box">
+                <div>
+                    <span class="badge">Solusi Inovatif Kami</span>
+                    <h2>Game Board Edukatif untuk Belajar & Team Building</h2>
+                    <p>
+                        Sebagai jawaban atas kejenuhan tersebut, kami menghadirkan <strong>Game Board Edukatif Bahasa Inggris</strong>. Permainan ini dirancang khusus agar setiap pemain terlibat aktif menyusun strategi, menjawab tantangan bahasa Inggris, dan berkomunikasi secara langsung.
+                    </p>
+                    <ul class="feature-list">
+                        <li>✦ Belajar Sambil Bermain</li>
+                        <li>✦ Interaktif & Tidak Kaku</li>
+                        <li>✦ Melatih Keberanian Speaking</li>
+                        <li>✦ Membangun Team Building</li>
+                    </ul>
+                </div>
+
+                <div class="image-frame" style="border-color: rgba(255,255,255,0.2);">
+                    <!-- Ganti 'foto-kelas-3.jpeg' dengan foto keseruan tim saat bermain -->
+                    <img src="foto-kelas-3.jpeg" alt="Keseruan Team Building dengan Game Board" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80'">
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 <strong>LingoLab</strong>. Belajar Bahasa Inggris Jadi Lebih Seru, Interaktif, dan Kolaboratif.</p>
+    </footer>
+
+    <!-- JAVASCRIPT UNTUK PERPINDAHAN HALAMAN HOME & ABOUT US -->
+    <script>
+        function switchPage(pageName) {
+            // Sembunyikan semua halaman
+            document.getElementById('page-home').classList.remove('active');
+            document.getElementById('page-about').classList.remove('active');
+
+            // Hapus status aktif pada semua tombol navbar
+            document.getElementById('btn-home').classList.remove('active');
+            document.getElementById('btn-about').classList.remove('active');
+
+            // Tampilkan halaman yang dipilih dan aktifkan tombolnya
+            document.getElementById('page-' + pageName).classList.add('active');
+            document.getElementById('btn-' + pageName).classList.add('active');
+
+            // Gulir otomatis ke atas layar
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
